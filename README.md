@@ -1,3 +1,12 @@
+# AnimateDiff Local Fine Tuning
+This repo is only for fine tuning motion modules, locally. It is based on the work of Tumurzakov and many others.
+
+Results "may" vary, use at your own discretion, offer void where prohibited. No gaurantees or promises.
+
+# HEAVILY WIP
+
+
+
 # AnimateDiff
 
 <a target="_blank" href="https://colab.research.google.com/github/tumurzakov/AnimateDiff/blob/main/Fine_tune_AnimateDiff.ipynb">
