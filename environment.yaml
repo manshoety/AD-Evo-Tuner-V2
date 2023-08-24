@@ -1,4 +1,4 @@
-name: animatediff
+name: ADT
 channels:
   - pytorch
   - nvidia
