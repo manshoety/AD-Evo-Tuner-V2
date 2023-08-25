@@ -9,6 +9,8 @@ Usage:
 
 *linux see end*
 
+ - Requires 3090/4090 for now, maybe...
+
 -git clone https://github.com/B34STW4RS/AD-Evo-Tuner/
 
  -cd AD-Evo-Tuner
