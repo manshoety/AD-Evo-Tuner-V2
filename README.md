@@ -147,8 +147,6 @@ python -m scripts.animate --config [path to the config file]
 ```
 
 
-## BibTeX
-```
 @misc{guo2023animatediff,
       title={AnimateDiff: Animate Your Personalized Text-to-Image Diffusion Models without Specific Tuning}, 
       author={Yuwei Guo, Ceyuan Yang, Anyi Rao, Yaohui Wang, Yu Qiao, Dahua Lin, Bo Dai},
