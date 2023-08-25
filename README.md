@@ -37,7 +37,9 @@ Usage:
 - hit start
 - ????
 - profit
+
 *models will be output to models/motion_module/{project_name+time}*
+
 *config will be saved to configs/training/{project_name+time.yaml}*
 
 # To Do:
