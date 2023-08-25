@@ -1,3 +1,65 @@
+# AnimateDiff Local Fine Tuning
+This repo is only for fine tuning motion modules, locally. It is based on the work of Tumurzakov, and with much help from Cubey and many others.
+
+Results "may" vary, use at your own discretion, offer void where prohibited. No gaurantees or promises.
+
+# HEAVILY WIP
+
+Usage:
+
+*linux see end*
+
+-git clone https://github.com/B34STW4RS/AD-Evo-Tuner/
+
+ -cd AD-Evo-Tuner
+
+-conda env create -f environment.yaml
+
+-conda activate adt
+
+-place motion modules in models/motion_module/
+
+-place runwayml sd1.5 files in models/stablediffusion/
+
+-unpacked don't need safetensors etc.
+
+-make a dataset similar to the default example set, including a populated caption.txt and validate.txt*
+
+*validate currently mostly non-functional wip*
+*sample dataset is a baseline of what you could probably train*
+*report issues with terminal outputs*
+*there are some nags you can ignore don't worry about them for now*
+
+- run adt-user.bat
+- name your project
+- select the motion module you wish to fine tune
+- select your dataset folder
+- hit start
+- ????
+- profit
+*models will be output to models/motion_module/{project_name+time}*
+*config will be saved to configs/training/{project_name+time.yaml}*
+
+# To Do:
+ - rewrite gui
+ - implement more viable parameters
+ - fix validation
+ - improve documentation
+ - post sample models to civit.ai
+ - post sample gifs from finetuned motion modules
+ - data preprocessor
+ - purple monkey dishwasher
+
+# On Linux // Temporary solution
+After solving the environment and activating it
+- pip uninstall xformers
+- pip install xformers==0.0.20
+- pip install triton==2.0.0
+
+#Advanced
+Advanced users can forgo using the gui entirely, and directly copy the default.yaml in the training directory and modify it as they wish.
+- run python train.py --config pathto/config.yaml
+
 # AnimateDiff
 
 <a target="_blank" href="https://colab.research.google.com/github/tumurzakov/AnimateDiff/blob/main/Fine_tune_AnimateDiff.ipynb">
@@ -20,27 +82,8 @@ Bo Dai
 
 [Arxiv Report](https://arxiv.org/abs/2307.04725) | [Project Page](https://animatediff.github.io/)
 
-## Todo
-- [x] Code Release
-- [x] Arxiv Report
-- [x] GPU Memory Optimization
-- [ ] Gradio Interface
-
-## Setup for Inference
-
-### Prepare Environment
-~~Our approach takes around 60 GB GPU memory to inference. NVIDIA A100 is recommanded.~~
-
-***We updated our inference code with xformers and a sequential decoding trick. Now AnimateDiff takes only ~12GB VRAM to inference, and run on a single RTX3090 !!***
 
 ```
-git clone https://github.com/guoyww/AnimateDiff.git
-cd AnimateDiff
-
-conda env create -f environment.yaml
-conda activate animatediff
-```
-
 ### Download Base T2I & Motion Module Checkpoints
 We provide two versions of our Motion Module, which are trained on stable-diffusion-v1-4 and finetuned on v1-5 seperately.
 It's recommanded to try both of them for best results.
@@ -103,137 +146,7 @@ Then run the following commands:
 python -m scripts.animate --config [path to the config file]
 ```
 
-## Gallery
-Here we demonstrate several best results we found in our experiments.
 
-<table class="center">
-    <tr>
-    <td><img src="__assets__/animations/model_01/01.gif"></td>
-    <td><img src="__assets__/animations/model_01/02.gif"></td>
-    <td><img src="__assets__/animations/model_01/03.gif"></td>
-    <td><img src="__assets__/animations/model_01/04.gif"></td>
-    </tr>
-</table>
-<p style="margin-left: 2em; margin-top: -1em">Model：<a href="https://civitai.com/models/30240/toonyou">ToonYou</a></p>
-
-<table>
-    <tr>
-    <td><img src="__assets__/animations/model_02/01.gif"></td>
-    <td><img src="__assets__/animations/model_02/02.gif"></td>
-    <td><img src="__assets__/animations/model_02/03.gif"></td>
-    <td><img src="__assets__/animations/model_02/04.gif"></td>
-    </tr>
-</table>
-<p style="margin-left: 2em; margin-top: -1em">Model：<a href="https://civitai.com/models/4468/counterfeit-v30">Counterfeit V3.0</a></p>
-
-<table>
-    <tr>
-    <td><img src="__assets__/animations/model_03/01.gif"></td>
-    <td><img src="__assets__/animations/model_03/02.gif"></td>
-    <td><img src="__assets__/animations/model_03/03.gif"></td>
-    <td><img src="__assets__/animations/model_03/04.gif"></td>
-    </tr>
-</table>
-<p style="margin-left: 2em; margin-top: -1em">Model：<a href="https://civitai.com/models/4201/realistic-vision-v20">Realistic Vision V2.0</a></p>
-
-<table>
-    <tr>
-    <td><img src="__assets__/animations/model_04/01.gif"></td>
-    <td><img src="__assets__/animations/model_04/02.gif"></td>
-    <td><img src="__assets__/animations/model_04/03.gif"></td>
-    <td><img src="__assets__/animations/model_04/04.gif"></td>
-    </tr>
-</table>
-<p style="margin-left: 2em; margin-top: -1em">Model： <a href="https://civitai.com/models/43331/majicmix-realistic">majicMIX Realistic</a></p>
-
-<table>
-    <tr>
-    <td><img src="__assets__/animations/model_05/01.gif"></td>
-    <td><img src="__assets__/animations/model_05/02.gif"></td>
-    <td><img src="__assets__/animations/model_05/03.gif"></td>
-    <td><img src="__assets__/animations/model_05/04.gif"></td>
-    </tr>
-</table>
-<p style="margin-left: 2em; margin-top: -1em">Model：<a href="https://civitai.com/models/66347/rcnz-cartoon-3d">RCNZ Cartoon</a></p>
-
-<table>
-    <tr>
-    <td><img src="__assets__/animations/model_06/01.gif"></td>
-    <td><img src="__assets__/animations/model_06/02.gif"></td>
-    <td><img src="__assets__/animations/model_06/03.gif"></td>
-    <td><img src="__assets__/animations/model_06/04.gif"></td>
-    </tr>
-</table>
-<p style="margin-left: 2em; margin-top: -1em">Model：<a href="https://civitai.com/models/33208/filmgirl-film-grain-lora-and-loha">FilmVelvia</a></p>
-
-### Longer generations
-You can also generate longer animations by using overlapping sliding windows.
-```
-python -m scripts.animate --config configs/prompts/{your_config}.yaml --L 64 --context_length 16 
-```
-##### Sliding window related parameters:
-
-```L``` - the length of the generated animation.
-
-```context_length``` - the length of the sliding window (limited by motion modules capacity), default to ```L```.
-
-```context_overlap``` - how much neighbouring contexts overlap. By default ```context_length``` / 2
-
-```context_stride``` - (2^```context_stride```) is a max stride between 2 neighbour frames. By default 0
-
-##### Extended this way gallery examples
-
-<table class="center">
-    <tr>
-    <td><img src="__assets__/animations/model_01_4x/01.gif"></td>
-    <td><img src="__assets__/animations/model_01_4x/02.gif"></td>
-    <td><img src="__assets__/animations/model_01_4x/03.gif"></td>
-    <td><img src="__assets__/animations/model_01_4x/04.gif"></td>
-    </tr>
-</table>
-<p style="margin-left: 2em; margin-top: -1em">Model：<a href="https://civitai.com/models/30240/toonyou">ToonYou</a></p>
-
-<table>
-    <tr>
-    <td><img src="__assets__/animations/model_03_4x/01.gif"></td>
-    <td><img src="__assets__/animations/model_03_4x/02.gif"></td>
-    <td><img src="__assets__/animations/model_03_4x/03.gif"></td>
-    <td><img src="__assets__/animations/model_03_4x/04.gif"></td>
-    </tr>
-</table>
-<p style="margin-left: 2em; margin-top: -1em">Model：<a href="https://civitai.com/models/4201/realistic-vision-v20">Realistic Vision V2.0</a></p>
-
-#### Community Cases
-Here are some samples contributed by the community artists. Create a Pull Request if you would like to show your results here😚.
-
-<table>
-    <tr>
-    <td><img src="__assets__/animations/model_07/init.jpg"></td>
-    <td><img src="__assets__/animations/model_07/01.gif"></td>
-    <td><img src="__assets__/animations/model_07/02.gif"></td>
-    <td><img src="__assets__/animations/model_07/03.gif"></td>
-    <td><img src="__assets__/animations/model_07/04.gif"></td>
-    </tr>
-</table>
-<p style="margin-left: 2em; margin-top: -1em">
-Character Model：<a href="https://civitai.com/models/13237/genshen-impact-yoimiya">Yoimiya</a> 
-(with an initial reference image, see <a href="https://github.com/talesofai/AnimateDiff">WIP fork</a> for the extended implementation.)
-
-
-<table>
-    <tr>
-    <td><img src="__assets__/animations/model_08/01.gif"></td>
-    <td><img src="__assets__/animations/model_08/02.gif"></td>
-    <td><img src="__assets__/animations/model_08/03.gif"></td>
-    <td><img src="__assets__/animations/model_08/04.gif"></td>
-    </tr>
-</table>
-<p style="margin-left: 2em; margin-top: -1em">
-Character Model：<a href="https://civitai.com/models/9850/paimon-genshin-impact">Paimon</a>;
-Pose Model：<a href="https://civitai.com/models/107295/or-holdingsign">Hold Sign</a></p>
-
-## BibTeX
-```
 @misc{guo2023animatediff,
       title={AnimateDiff: Animate Your Personalized Text-to-Image Diffusion Models without Specific Tuning}, 
       author={Yuwei Guo, Ceyuan Yang, Anyi Rao, Yaohui Wang, Yu Qiao, Dahua Lin, Bo Dai},
