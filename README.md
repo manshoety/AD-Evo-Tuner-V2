@@ -18,6 +18,7 @@ conda activate adt
 ```
 place motion modules in models/motion_module/
 
+run the ```download_SD1.5_prereq``` or ```EZ_Facehugger.py``` while the virtual environment is active.
 place runwayml sd1.5 files in models/stablediffusion/
 
 unpacked don't need safetensors etc.
