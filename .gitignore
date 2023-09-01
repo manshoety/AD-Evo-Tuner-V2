@@ -1,2 +1,5 @@
 #ignore large
-/models/
+/models/StableDiffusion/
+/models/embeddings/
+/models/DreamBooth_LoRA/
+/models/Motion_Module/
