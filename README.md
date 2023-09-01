@@ -10,22 +10,19 @@ Usage:
 *linux see end*
 
  - Requires 3090/4090 for now, maybe...
+```
+git clone https://github.com/B34STW4RS/AD-Evo-Tuner/
+cd AD-Evo-Tuner
+conda env create -f environment.yaml
+conda activate adt
+```
+place motion modules in models/motion_module/
 
--git clone https://github.com/B34STW4RS/AD-Evo-Tuner/
+place runwayml sd1.5 files in models/stablediffusion/
 
- -cd AD-Evo-Tuner
+unpacked don't need safetensors etc.
 
--conda env create -f environment.yaml
-
--conda activate adt
-
--place motion modules in models/motion_module/
-
--place runwayml sd1.5 files in models/stablediffusion/
-
--unpacked don't need safetensors etc.
-
--make a dataset similar to the default example set, including a populated caption.txt and validate.txt*
+make a dataset similar to the default example set, including a populated caption.txt and validate.txt*
 
 *validate currently mostly non-functional wip*
 *sample dataset is a baseline of what you could probably train*
@@ -87,7 +84,7 @@ Bo Dai
 [Arxiv Report](https://arxiv.org/abs/2307.04725) | [Project Page](https://animatediff.github.io/)
 
 
-```
+
 ### Download Base T2I & Motion Module Checkpoints
 We provide two versions of our Motion Module, which are trained on stable-diffusion-v1-4 and finetuned on v1-5 seperately.
 It's recommanded to try both of them for best results.
@@ -102,6 +99,7 @@ You may also directly download the motion module checkpoints from [Google Drive]
 ### Prepare Personalize T2I
 Here we provide inference configs for 6 demo T2I on CivitAI.
 You may run the following bash scripts to download these checkpoints.
+
 ```
 bash download_bashscripts/1-ToonYou.sh
 bash download_bashscripts/2-Lyriel.sh
@@ -115,6 +113,7 @@ bash download_bashscripts/8-GhibliBackground.sh
 
 ### Inference
 After downloading the above peronalized T2I checkpoints, run the following commands to generate animations. The results will automatically be saved to `samples/` folder.
+
 ```
 python -m scripts.animate --config configs/prompts/1-ToonYou.yaml
 python -m scripts.animate --config configs/prompts/2-Lyriel.yaml
@@ -127,6 +126,7 @@ python -m scripts.animate --config configs/prompts/8-GhibliBackground.yaml
 ```
 
 To generate animations with a new DreamBooth/LoRA model, you may create a new config `.yaml` file in the following format:
+
 ```
 NewModel:
   path: "[path to your DreamBooth/LoRA model .safetensors file]"
@@ -159,7 +159,7 @@ python -m scripts.animate --config [path to the config file]
       archivePrefix={arXiv},
       primaryClass={cs.CV}
 }
-```
+
 
 ## Contact Us
 **Yuwei Guo**: [guoyuwei@pjlab.org.cn](mailto:guoyuwei@pjlab.org.cn)  
