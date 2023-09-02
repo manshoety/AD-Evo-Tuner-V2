@@ -24,3 +24,6 @@ dependencies:
     - scipy
     - compel
     - xformers==0.0.16
+    - google
+    - protobuf
+    - tensorboardX
