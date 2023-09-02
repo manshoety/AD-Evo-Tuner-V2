@@ -35,7 +35,7 @@ local_file_paths = [
     "model_index.json"
 ]
 
-sd_root = "StableDiffusion/"
+sd_root = "models/StableDiffusion/"
 
 for file_path in local_file_paths:
     file_url = f"{base_download_url}/{file_path}"
