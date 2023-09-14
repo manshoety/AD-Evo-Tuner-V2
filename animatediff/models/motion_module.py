@@ -52,7 +52,7 @@ class VanillaTemporalModule(nn.Module):
         self,
         in_channels,
         num_attention_heads                = 8,
-        num_transformer_block              = 1,
+        num_transformer_block              = 2,
         attention_block_types              =( "Temporal_Self", "Temporal_Self" ),
         cross_frame_attention_mode         = None,
         temporal_position_encoding         = False,
