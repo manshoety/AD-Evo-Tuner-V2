@@ -52,7 +52,7 @@ class VanillaTemporalModule(nn.Module):
         self,
         in_channels,
         num_attention_heads                = 8,
-        num_transformer_block              = 2,
+        num_transformer_block              = 1,
         attention_block_types              =( "Temporal_Self", "Temporal_Self" ),
         cross_frame_attention_mode         = None,
         temporal_position_encoding         = False,
@@ -260,6 +260,8 @@ class VersatileAttention(CrossAttention):
 
         self.attention_mode = attention_mode
         self.is_cross_attention = kwargs["cross_attention_dim"] is not None
+
+        self._use_memory_efficient_attention_xformers = True
 
         self.pos_encoder = PositionalEncoding(
             kwargs["query_dim"],
