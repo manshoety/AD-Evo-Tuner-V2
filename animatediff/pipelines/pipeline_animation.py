@@ -25,8 +25,9 @@ from diffusers.schedulers import (
     LMSDiscreteScheduler,
     PNDMScheduler,
 )
-from diffusers.utils import deprecate, logging, BaseOutput, is_compiled_module
-from diffusers.pipelines.controlnet import MultiControlNetModel
+# from diffusers.utils import deprecate, logging, BaseOutput, is_compiled_module
+from diffusers.utils import deprecate, logging, BaseOutput
+# from diffusers.pipelines.controlnet import MultiControlNetModel
 
 from einops import rearrange, repeat
 
@@ -36,7 +37,7 @@ from ..utils import overlap_policy
 from ..utils.path import get_absolute_path
 from ..utils.textual_invertion_loader_mixin import TextualInversionLoaderMixin
 
-from diffusers.image_processor import VaeImageProcessor
+# from diffusers.image_processor import VaeImageProcessor
 
 from compel import Compel, DiffusersTextualInversionManager
 import PIL
@@ -68,7 +69,7 @@ class AnimationPipeline(DiffusionPipeline, TextualInversionLoaderMixin):
             DPMSolverMultistepScheduler,
         ],
         scan_inversions: bool = True,
-        controlnet: Union[ControlNetModel, List[ControlNetModel], Tuple[ControlNetModel], MultiControlNetModel] = None,
+        #controlnet: Union[ControlNetModel, List[ControlNetModel], Tuple[ControlNetModel], MultiControlNetModel] = None,
     ):
         super().__init__()
 
@@ -120,8 +121,8 @@ class AnimationPipeline(DiffusionPipeline, TextualInversionLoaderMixin):
             new_config["sample_size"] = 64
             unet._internal_dict = FrozenDict(new_config)
 
-        if isinstance(controlnet, (list, tuple)):
-            controlnet = MultiControlNetModel(controlnet)
+        #if isinstance(controlnet, (list, tuple)):
+            #controlnet = MultiControlNetModel(controlnet)
 
         self.register_modules(
             vae=vae,
@@ -129,7 +130,7 @@ class AnimationPipeline(DiffusionPipeline, TextualInversionLoaderMixin):
             tokenizer=tokenizer,
             unet=unet,
             scheduler=scheduler,
-            controlnet=controlnet,
+            #controlnet=controlnet,
         )
         self.vae_scale_factor = 2 ** (len(self.vae.config.block_out_channels) - 1)
         self.embeddings_dir = get_absolute_path('models', 'embeddings')
@@ -144,9 +145,9 @@ class AnimationPipeline(DiffusionPipeline, TextualInversionLoaderMixin):
             textual_inversion_manager=textual_inversion_manager,
         )
 
-        self.control_image_processor = VaeImageProcessor(
-            vae_scale_factor=self.vae_scale_factor, do_convert_rgb=True, do_normalize=False
-        )
+        #self.control_image_processor = VaeImageProcessor(
+        #    vae_scale_factor=self.vae_scale_factor, do_convert_rgb=True, do_normalize=False
+        #)
 
     def update_embeddings(self):
         if not self.scan_inversions:
@@ -635,7 +636,12 @@ class AnimationPipeline(DiffusionPipeline, TextualInversionLoaderMixin):
         **kwargs,
     ):
         if self.controlnet:
-            controlnet = self.controlnet._orig_mod if is_compiled_module(self.controlnet) else self.controlnet
+            # controlnet = self.controlnet._orig_mod if is_compiled_module(self.controlnet) else self.controlnet
+            try:
+                controlnet = self.controlnet._orig_mod
+            except Exception:
+                controlnet = self.controlnet
+            
 
             # align format for control guidance
             if not isinstance(control_guidance_start, list) and isinstance(control_guidance_end, list):
