@@ -73,8 +73,17 @@ def main(
     inference_config_path: str = "configs/inference/inference.yaml",
     motion_module_pe_multiplier: int = 1,
     dataset_class: str = 'MultiTuneAVideoDataset',
+    motion_module_version: str = "V1",
 ):
     *_, config = inspect.getargvalues(inspect.currentframe())
+
+    if motion_module_version == 'V2':
+        inference_config_path = 'configs/inference/inference-v2.yaml'
+
+
+    # MINE
+    #mixed_precision = 'bf16'
+    #motion_module_pe_multiplier = 2
 
     inference_config = OmegaConf.load(inference_config_path)
 
@@ -109,6 +118,7 @@ def main(
         os.makedirs(f"{output_dir}/samples", exist_ok=True)
         os.makedirs(f"{output_dir}/inv_latents", exist_ok=True)
         OmegaConf.save(config, os.path.join(output_dir, 'config.yaml'))
+
 
     # Load scheduler, tokenizer and models.
     noise_scheduler = DDPMScheduler.from_pretrained(pretrained_model_path, subfolder="scheduler")
@@ -177,6 +187,29 @@ def main(
         weight_decay=adam_weight_decay,
         eps=adam_epsilon,
     )
+
+    # MY STUFF
+    #data_path = '/mnt/i/Datasets/CleanVid_Map_15M/pre_processed'
+    #description_dir = '/mnt/i/Datasets/CleanVid_Map_15M/prompts.json'
+
+
+    # Get the training dataset
+    #train_dataset = None
+    #dataset_class = 'MultiTuneAVideoDataset'
+    #if dataset_class == 'MultiTuneAVideoDataset':
+    #    train_dataset = MultiTuneAVideoDataset(
+    #    video_dir=data_path,
+    #    description_dir=description_dir,
+    #    sample_start_idx=0,
+    #    )
+    #    print('tokenizing prompts')
+    #    for id_thing, description in train_dataset.descriptions.items():
+    #        train_dataset.descriptions_tokenized[str(id_thing)] = tokenizer.encode(
+    #            description,max_length=tokenizer.model_max_length, padding="max_length", truncation=True, return_tensors="pt"
+    #        ).squeeze(0)
+    #else:
+    #    train_dataset = FramesDataset(tokenizer=tokenizer, **train_data)
+    #    train_dataset.load()
 
     # Get the training dataset
     train_dataset = None
@@ -407,6 +440,8 @@ def save_checkpoint(unet, mm_path):
             mm_state_dict[key] = state_dict[key]
 
     torch.save(mm_state_dict, mm_path)
+    # clear GPU cache
+    torch.cuda.empty_cache()
 
 
 if __name__ == "__main__":
