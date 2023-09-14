@@ -116,6 +116,11 @@ def save_yaml():
         # Update yaml_content with the new motion_module path
         yaml_content['motion_module'] = standardized_motion_module_path
 
+        selected_motion_module_version = str(motion_module_version_var.get())
+
+        # Update model version
+        yaml_content['motion_module_version'] = selected_motion_module_version
+
         # Update the boolean value in the YAML content
         yaml_content['train_whole_module'] = train_whole_module_var.get()
 
@@ -268,23 +273,39 @@ if first_ckpt_index is not None:
     motion_module_dropdown.current(first_ckpt_index)
 
 
+#Model Version
+motion_module_version_var = StringVar()
+motion_module_version_label = Label(info_frame, text="Model Version:")
+motion_module_version_label.grid(row=2, column=0, sticky='w')
+
+model_versions = ['V1', 'V2']
+
+# Create and populate the Combobox
+motion_module_version_dropdown = ttk.Combobox(info_frame, textvariable=motion_module_version_var)
+motion_module_version_dropdown['values'] = model_versions
+motion_module_version_dropdown.grid(row=2, column=1)
+
+motion_module_version_dropdown.current(0)
+
+
 # Get a list of folders in the data/ directory
 folder_names = [f for f in os.listdir('data/') if os.path.isdir(os.path.join('data/', f))]
 
 # Folder Dropdown
 folder_var = StringVar()
 folder_label = Label(info_frame, text="Dataset:")
-folder_label.grid(row=2, column=0, sticky='w')
+folder_label.grid(row=3, column=0, sticky='w')
 
 folder_dropdown = ttk.Combobox(info_frame, textvariable=folder_var)
 folder_dropdown['values'] = folder_names
-folder_dropdown.grid(row=2, column=1)
+folder_dropdown.grid(row=3, column=1)
 
 # Set the default value for the dropdown
 if "default" in folder_names:
     folder_dropdown.current(folder_names.index("default"))
 else:
     folder_var.set("None")  # You can set it to any default value or leave it empty
+
 
 
 # Train Data Frame
