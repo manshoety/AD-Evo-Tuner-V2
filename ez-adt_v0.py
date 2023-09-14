@@ -275,7 +275,7 @@ if first_ckpt_index is not None:
 
 #Model Version
 motion_module_version_var = StringVar()
-motion_module_version_label = Label(info_frame, text="Model Version:")
+motion_module_version_label = Label(info_frame, text="Module Version:")
 motion_module_version_label.grid(row=2, column=0, sticky='w')
 
 model_versions = ['V1', 'V2']
