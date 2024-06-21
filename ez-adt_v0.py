@@ -278,7 +278,7 @@ motion_module_version_var = StringVar()
 motion_module_version_label = Label(info_frame, text="Module Version:")
 motion_module_version_label.grid(row=2, column=0, sticky='w')
 
-model_versions = ['V1', 'V2']
+model_versions = ['V1', 'V2', 'V3']
 
 # Create and populate the Combobox
 motion_module_version_dropdown = ttk.Combobox(info_frame, textvariable=motion_module_version_var)
