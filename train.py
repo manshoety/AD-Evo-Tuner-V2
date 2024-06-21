@@ -79,6 +79,8 @@ def main(
 
     if motion_module_version == 'V2':
         inference_config_path = 'configs/inference/inference-v2.yaml'
+    elif motion_module_version == 'V3':
+        inference_config_path = 'configs/inference/inference-v3.yaml'
 
 
     # MINE
