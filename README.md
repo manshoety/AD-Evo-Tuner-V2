@@ -1,3 +1,6 @@
+# TODO: NOT BEING TRANSFERED. INOPERABLE. ARCHIVE ONLY
+
+
 # AnimateDiff Local Fine Tuning
 This repo is only for fine tuning motion modules, locally. It is based on the work of Tumurzakov, and with much help from Cubey and many others.
 
